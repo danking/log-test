@@ -1,0 +1,36 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+plugins {
+  id "application"
+  id 'java'
+  id 'scala'
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://repository.cloudera.com/artifactory/cloudera-repos/" }
+}
+
+project.ext {
+    sparkVersion = System.getProperty("spark.version", "3.3.0")
+    scalaVersion = System.getProperty("scala.version", "2.12.13")
+}
+
+compileScala {
+}
+
+dependencies {
+    implementation 'org.scala-lang:scala-library:' + scalaVersion
+    implementation 'org.scala-lang:scala-reflect:' + scalaVersion
+    implementation('org.apache.spark:spark-core_' + '2.12:' + sparkVersion) {
+        exclude module: 'hadoop-client'
+    }
+}
+
+application {
+    mainClassName = "is.hail.Test"
+}
