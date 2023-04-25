@@ -45,12 +45,17 @@ class HailQoBJobAppender extends AbstractAppender(
     fio.write(s)
   }
 
+  def flush() = fio.flush()
+
   def close() = {
-    fio.flush()
+    flush()
     fio.close()
   }
 
-  override def stop() = close()
+  override def stop() = {
+    close()
+    state = LifeCycle.State.STOPPED;
+  }
 
   def requiresLayout(): Boolean = false
 
