@@ -1,6 +1,7 @@
 package is.hail
 
 import java.io._
+import java.util.concurrent.TimeUnit
 // import org.apache.log4j._
 // import org.apache.log4j.spi._
 import org.apache.logging.log4j.core._
@@ -52,9 +53,11 @@ class HailQoBJobAppender extends AbstractAppender(
     fio.close()
   }
 
-  override def stop() = {
+  override def stop(timeout: Long, timeUnit: TimeUnit): Boolean = {
+    setStopping()
     close()
-    state = LifeCycle.State.STOPPED;
+    setStopped()
+    return true
   }
 
   def requiresLayout(): Boolean = false
