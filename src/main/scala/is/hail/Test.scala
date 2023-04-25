@@ -7,12 +7,15 @@ object Test {
   private val log = Logger.getLogger(getClass.getName())
 
   def main(args: Array[String]): Unit = {
+    Runtime.getRuntime().addShutdownHook(
+      new Thread() { override def run(): Unit = LogManager.shutdown() })
+
     log.error("ONE")
-    HailQoBJobAppender.getTheOneHailQoBJobAppender.changeFile("file2")
+    QoBOutputStreamManager.instance.changeFile("file2")
     log.error("TWO")
-    HailQoBJobAppender.getTheOneHailQoBJobAppender.changeFile("file3")
+    QoBOutputStreamManager.instance.changeFile("file3")
     log.error("THREE")
-    HailQoBJobAppender.getTheOneHailQoBJobAppender.changeFile("file4")
+    QoBOutputStreamManager.instance.changeFile("file4")
     LogManager.getRootLogger().error("FOUR")
   }
 }
