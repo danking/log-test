@@ -33,11 +33,11 @@ class HailQoBJobAppender extends AbstractAppender(
   private[this] var fio = new PrintWriter(new BufferedOutputStream(new FileOutputStream("/tmp/foo")))
   System.err.println("I am alive")
 
-  if (theOneHailQoBJobAppender != null) {
+  if (HailQoBJobAppender.theOneHailQoBJobAppender != null) {
     throw new RuntimeException("absolutely not.")
   }
 
-  theOneHailQoBJobAppender = this
+  HailQoBJobAppender.theOneHailQoBJobAppender = this
 
   override def append(event: LogEvent): Unit = {
     val s = layout.toSerializable(event)

@@ -8,11 +8,11 @@ object Test {
 
   def main(args: Array[String]): Unit = {
     log.error("ONE")
-    HailQoBJobAppender.getTheOneHailQoBJobAppender().changeFile("file2")
+    HailQoBJobAppender.getTheOneHailQoBJobAppender.changeFile("file2")
     log.error("TWO")
-    HailQoBJobAppender.getTheOneHailQoBJobAppender().changeFile("file3")
+    HailQoBJobAppender.getTheOneHailQoBJobAppender.changeFile("file3")
     log.error("THREE")
-    HailQoBJobAppender.getTheOneHailQoBJobAppender().changeFile("file4")
+    HailQoBJobAppender.getTheOneHailQoBJobAppender.changeFile("file4")
     LogManager.getRootLogger().error("FOUR")
   }
 }
