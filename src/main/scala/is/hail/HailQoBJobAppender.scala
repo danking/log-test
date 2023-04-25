@@ -50,6 +50,8 @@ class HailQoBJobAppender extends AbstractAppender(
     fio.close()
   }
 
+  override def stop() = close()
+
   def requiresLayout(): Boolean = false
 
   def changeFile(file: String): Unit = {
