@@ -30,7 +30,7 @@ class HailQoBJobAppender extends AbstractAppender(
 ) {
   private[this] val logFormat: String = "%d{yyyy-MM-dd HH:mm:ss.SSS} %c{1}: %p: %m%n"
   private[this] val layout = PatternLayout.createDefaultLayout()
-  private[this] var fio = new PrintWriter(new BufferedOutputStream(new FileOutputStream("/tmp/foo")))
+  private[this] var fio = new PrintWriter(new BufferedOutputStream(new FileOutputStream("file1")))
   System.err.println("I am alive")
 
   if (HailQoBJobAppender.theOneHailQoBJobAppender != null) {
@@ -41,7 +41,7 @@ class HailQoBJobAppender extends AbstractAppender(
 
   override def append(event: LogEvent): Unit = {
     val s = layout.toSerializable(event)
-    System.err.println("append " + s)
+    System.err.println("STDERR: " + s)
     fio.write(s)
   }
 
@@ -54,6 +54,8 @@ class HailQoBJobAppender extends AbstractAppender(
 
   def changeFile(file: String): Unit = {
     System.err.println("changeFile")
+    fio.flush()
+    fio.close()
     fio = new PrintWriter(new BufferedOutputStream(new FileOutputStream(file)))
   }
 }
